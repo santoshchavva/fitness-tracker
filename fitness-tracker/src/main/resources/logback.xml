@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="DEV_HOME" value="C:/disk/logs/" />
+	<appender name="FILE-THREAD"
+		class="ch.qos.logback.classic.sift.SiftingAppender">
+
+
+		<discriminator>
+			<key>logFileName</key>
+			<defaultValue>fittness-tracker</defaultValue>
+		</discriminator>
+		<sift>
+			<appender name="rollingCoreLog"
+				class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<rollingPolicy
+					class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+					<fileNamePattern>${DEV_HOME}/${logFileName}.%d{yyyy-MM-dd}.%i.log
+					</fileNamePattern>
+
+					<maxHistory>30</maxHistory>
+
+					<cleanHistoryOnStart>true</cleanHistoryOnStart>
+
+					<timeBasedFileNamingAndTriggeringPolicy
+						class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+
+						<maxFileSize>20MB</maxFileSize>
+
+					</timeBasedFileNamingAndTriggeringPolicy>
+
+				</rollingPolicy>
+				<encoder>
+					 <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %level %logger{35} - %msg%n</pattern>
+				</encoder>
+			</appender>
+		</sift>
+	</appender>
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+
+		<encoder>
+
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %level %logger{35} -
+				%msg%n</pattern>
+
+		</encoder>
+
+	</appender>
+
+
+
+	<logger name="com" level="debug" additivity="false">
+
+		<appender-ref ref="FILE-THREAD" />
+
+		<appender-ref ref="STDOUT" />
+
+	</logger>
+
+	<logger name="org" level="info" additivity="false">
+
+		<appender-ref ref="FILE-THREAD" />
+
+		<appender-ref ref="STDOUT" />
+
+	</logger>
+
+
+
+	<root level="error">
+
+		<appender-ref ref="FILE-THREAD" />
+
+		<appender-ref ref="STDOUT" />
+
+	</root>
+</configuration>

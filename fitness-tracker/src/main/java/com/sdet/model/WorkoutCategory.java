@@ -18,7 +18,7 @@ public class WorkoutCategory {
 	private long id;
 	
 	@NotBlank
-	@Column(name="category_name")
+	@Column(name = "category_name", unique = true)
 	private String categoryName;
 
 	public long getId() {

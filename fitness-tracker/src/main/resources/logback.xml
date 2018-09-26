@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<property name="DEV_HOME" value="C:/disk/logs/" />
+	<property name="DEV_HOME" value="/Users/santoshchavva/Documents/logs/" />
 	<appender name="FILE-THREAD"
 		class="ch.qos.logback.classic.sift.SiftingAppender">
 

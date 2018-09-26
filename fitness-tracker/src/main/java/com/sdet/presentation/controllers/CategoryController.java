@@ -1,6 +1,5 @@
 package com.sdet.presentation.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,19 +14,23 @@ import com.sdet.services.WorkoutCategoryService;
 
 @RestController
 public class CategoryController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
 	@Autowired
 	WorkoutCategoryService categoryService;
-	
+
 	@RequestMapping("/addCategory")
-	public List<WorkoutCategory> addCategory(@RequestParam(value = "categoryName") String categoryName) {
+	public WorkoutCategory addCategory(@RequestParam(value = "categoryName") String categoryName) {
 		WorkoutCategory category = categoryService.addCategory(categoryName);
-		List<WorkoutCategory> list = new ArrayList<>();
-		list.add(category);
-		LOGGER.debug("category {}",list);
-		return list;
+		LOGGER.debug("category {}", category);
+		return category;
+	}
+
+	@RequestMapping("/findAllCategory")
+	public List<WorkoutCategory> findAll() {
+		return categoryService.getCategories("");
+
 	}
 
 }

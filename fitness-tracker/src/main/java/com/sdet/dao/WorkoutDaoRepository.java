@@ -1,14 +1,14 @@
 package com.sdet.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 
-import com.sdet.model.WorkoutCategory;
-
-@SuppressWarnings("hiding")
-public interface WorkoutDaoRepository<T, Long> extends JpaRepository<T, Long> {
+@NoRepositoryBean
+public interface WorkoutDaoRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 	
-	public List<WorkoutCategory> findCategory(final String filterName);
+	public List<T> findCategory(final String filterName);
 
 }

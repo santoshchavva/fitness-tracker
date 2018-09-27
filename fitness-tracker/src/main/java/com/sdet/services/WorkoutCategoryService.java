@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sdet.dao.WorkoutDaoRepositoryImpl;
+import com.sdet.dao.WorkoutDaoRepository;
 import com.sdet.exception.ServiceException;
 import com.sdet.model.WorkoutCategory;
 import com.sdet.presentation.controllers.CategoryController;
@@ -16,9 +15,8 @@ import com.sdet.presentation.controllers.CategoryController;
 public class WorkoutCategoryService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
-
-	@Autowired
-	WorkoutDaoRepositoryImpl<WorkoutCategory, Long> workOutDao;
+	
+	WorkoutDaoRepository<WorkoutCategory, Long> workOutDao;
 
 	public WorkoutCategory addCategory(final String categoryName) throws ServiceException {
 		WorkoutCategory category = new WorkoutCategory();

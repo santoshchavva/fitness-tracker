@@ -14,11 +14,8 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.sdet.model.WorkoutCategory;
-
-@SuppressWarnings("hiding")
-public class WorkoutDaoRepositoryImpl<T, Long extends Serializable> extends SimpleJpaRepository<T, Long>
-		implements WorkoutDaoRepository<T, Long> {
+public class WorkoutDaoRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID>
+		implements WorkoutDaoRepository<T, ID> {
 
 	private EntityManager entityManager;
 
@@ -30,14 +27,12 @@ public class WorkoutDaoRepositoryImpl<T, Long extends Serializable> extends Simp
 
 	@Override
 	@Transactional
-	// @Query("SELECT u FROM WorkoutCategory u WHERE u.category_name like
-	// %:filterName%")
-	public List<WorkoutCategory> findCategory(@Param("filterName") String filterName) {
+	public List<T> findCategory(@Param("filterName") String filterName) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<WorkoutCategory> query = builder.createQuery(WorkoutCategory.class);
-		Root<WorkoutCategory> root = query.from(WorkoutCategory.class);
+		CriteriaQuery<T> query = builder.createQuery(getDomainClass());
+		Root<T> root = query.from(getDomainClass());
 		query.select(root).where(builder.like(root.<String>get("categoryName"), "%" + filterName + "%"));
-		TypedQuery<WorkoutCategory> q = entityManager.createQuery(query);
+		TypedQuery<T> q = entityManager.createQuery(query);
 		return q.getResultList();
 	}
 

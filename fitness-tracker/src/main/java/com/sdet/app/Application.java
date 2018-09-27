@@ -8,13 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import com.sdet.dao.WorkoutDaoRepositoryImpl;
 //extends SpringBootServletInitializer
 @SpringBootApplication
 @EntityScan(basePackages= {"com.sdet.model"})
 @ComponentScan(basePackages= {"com.sdet.model","com.sdet.presentation","com.sdet.services","com.sdet.dao"})
-@EnableJpaRepositories(basePackages= {"com.sdet.dao","com.sdet.model"}, repositoryBaseClass = WorkoutDaoRepositoryImpl.class)
+@EnableJpaRepositories(basePackages= {"com.sdet.dao","com.sdet.model"})
 public class Application  {
 
 	

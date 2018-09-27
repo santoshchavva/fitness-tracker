@@ -38,9 +38,34 @@ public class CategoryController {
 	}
 
 	@RequestMapping("/findAllCategory")
-	public List<WorkoutCategory> findAll(@RequestParam(value = "categoryName") String categoryName) {
-		return categoryService.getAllCategories(categoryName);
+	public ResponseEntity<List<WorkoutCategory>> findAll(@RequestParam(value = "categoryName") String categoryName) {
+		List<WorkoutCategory> categoryList = null;
+		try {
+			categoryList = categoryService.getAllCategories(categoryName);
+			LOGGER.debug("category List {}", categoryList);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(categoryList);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(categoryList);
 
+	}
+	
+	@RequestMapping("/deleteCategory")
+	@SuppressWarnings("rawtypes")
+	public ResponseEntity deleteCategory(@RequestParam(value="categoryId") Long categoryId) {
+			
+		try {
+			categoryService.deleteCategory(categoryId);
+			LOGGER.debug("categoryId deleted {}", categoryId);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 }

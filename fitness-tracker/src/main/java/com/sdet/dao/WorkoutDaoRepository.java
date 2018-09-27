@@ -1,14 +1,15 @@
 package com.sdet.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.data.jpa.repository.Query;
 
-@NoRepositoryBean
-public interface WorkoutDaoRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
+import com.sdet.model.WorkoutCategory;
+
+public interface WorkoutDaoRepository extends JpaRepository<WorkoutCategory, Long> {
 	
-	public List<T> findCategory(final String filterName);
+	@Query(value = "SELECT * FROM workout_category WHERE category_name like %?1% ", nativeQuery = true)
+	public List<WorkoutCategory> findCategory(final String filterName);
 
 }

@@ -18,7 +18,7 @@ public class WorkoutCategoryService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
 	@Autowired
-	WorkoutDaoRepositoryImpl workOutDao;
+	WorkoutDaoRepositoryImpl<WorkoutCategory, Long> workOutDao;
 
 	public WorkoutCategory addCategory(final String categoryName) throws ServiceException {
 		WorkoutCategory category = new WorkoutCategory();

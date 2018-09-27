@@ -1,5 +1,6 @@
 package com.sdet.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,17 +13,16 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import com.sdet.model.WorkoutCategory;
 
-@Repository
-public class WorkoutDaoRepositoryImpl extends SimpleJpaRepository<WorkoutCategory, Long>
-		implements WorkoutDaoRepository {
+@SuppressWarnings("hiding")
+public class WorkoutDaoRepositoryImpl<T, Long extends Serializable> extends SimpleJpaRepository<T, Long>
+		implements WorkoutDaoRepository<T, Long> {
 
 	private EntityManager entityManager;
 
-	public WorkoutDaoRepositoryImpl(JpaEntityInformation<WorkoutCategory, ?> entityInformation,
+	public WorkoutDaoRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
 			EntityManager entityManager) {
 		super(entityInformation, entityManager);
 		this.entityManager = entityManager;

@@ -10,6 +10,6 @@ import com.sdet.model.WorkoutCategory;
 public interface WorkoutDaoRepository extends JpaRepository<WorkoutCategory, Long> {
 	
 	@Query(value = "SELECT * FROM workout_category WHERE category_name like %?1% ", nativeQuery = true)
-	public List<WorkoutCategory> findCategory(final String filterName);
+	public List<WorkoutCategory> filterCategory(final String filterName);
 
 }

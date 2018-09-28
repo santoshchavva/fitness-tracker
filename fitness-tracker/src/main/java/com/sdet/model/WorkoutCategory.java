@@ -36,6 +36,12 @@ public class WorkoutCategory {
 	public void setCategoryName(String categortName) {
 		this.categoryName = categortName;
 	}
+
+	@Override
+	public String toString() {
+		return "WorkoutCategory [id=" + id + ", categoryName=" + categoryName + "]";
+	}
+	
 	
 
 }

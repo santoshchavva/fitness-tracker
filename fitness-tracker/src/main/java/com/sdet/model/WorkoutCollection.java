@@ -31,7 +31,7 @@ public class WorkoutCollection {
 	private String note;
 	
 	@Column (name="calories_burn_per_min")
-	private int caleroies;
+	private int calories;
 
 	public WorkoutCategory getCategory() {
 		return category;
@@ -57,16 +57,22 @@ public class WorkoutCollection {
 		this.note = note;
 	}
 
-	public int getCaleroies() {
-		return caleroies;
+	public int getCalories() {
+		return calories;
 	}
 
-	public void setCaleroies(int caleroies) {
-		this.caleroies = caleroies;
+	public void setCalories(int calories) {
+		this.calories = calories;
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "WorkoutCollection [id=" + id + ", category=" + category + ", title=" + title + ", note=" + note
+				+ ", calories=" + calories + "]";
 	}
 
 }

@@ -25,27 +25,23 @@ public class WorkoutCollectionService {
 	@Autowired
 	WorkoutCollectionRepository collectionDao;
 	
-	public WorkoutCollection createWorkOut(final JSONObject collectionJson) throws ServiceException {
-	    WorkoutCollection saved = null;
+	public WorkoutCollection createWorkOut(final WorkoutCollection collection) throws ServiceException {
+		WorkoutCollection saved = null;
 		try {
-		final WorkoutCollection collection = new WorkoutCollection();
-		collection.setTitle(collectionJson.getString("title"));
-		collection.setNote(collectionJson.getString("notes"));
-		collection.setCaleroies(collectionJson.getInt("calories"));
-		collection.setCategory(workOutDao.getOne(collectionJson.getLong("category")));
-		saved = collectionDao.save(collection);
+			//collection.setCategory(workOutDao.getOne(collection.getCategory().getId()));
+			saved = collectionDao.save(collection);
 		} catch (Exception e) {
 			LOGGER.error("Error saving workout Collection ", e);
 			throw new ServiceException("Exception during saving workout ");
 		}
-		
+
 		return saved;
 	}
 	
 	public List<WorkoutCollection> findWorkouts (final String filterString) throws ServiceException {
 		List<WorkoutCollection> result = null;
 		try {
-			collectionDao.filterWorkouts(filterString);
+			result = collectionDao.filterWorkouts(filterString);
 		} catch (Exception e) {
 			LOGGER.error("Error retreiving workouts ", e);
 			throw new ServiceException(" Exception retreiving workouts ");
@@ -54,12 +50,13 @@ public class WorkoutCollectionService {
 	} 
 	
 	public void deleteWorkout(Long workoutId) throws ServiceException {
-	try {
-		collectionDao.deleteById(workoutId);
-	} catch (Exception e) {
-		LOGGER.error("Exception while deleting workOutCategory ", e);
-		throw new ServiceException("Exception retreiving all catogery Names ");
-	}
+		try {
+			LOGGER.debug("DeleteRequest for id {}",workoutId);
+			collectionDao.deleteById(workoutId);
+		} catch (Exception e) {
+			LOGGER.error("Exception while deleting workOutCategory ", e);
+			throw new ServiceException("Exception retreiving all catogery Names ");
+		}
 	}
 
 }

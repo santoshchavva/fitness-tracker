@@ -32,23 +32,21 @@ public class CategoryController {
 			category = categoryService.addCategory(categoryName);
 			LOGGER.debug("category {}", category);
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Exception adding categories", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(category);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(category);
 	}
 
 	@RequestMapping("/categories")
-	public ResponseEntity<List<WorkoutCategory>> getCategories (
+	public ResponseEntity<List<WorkoutCategory>> getCategories(
 			@RequestParam(value = "categoryName", required = false, defaultValue = "") String categoryName) {
 		List<WorkoutCategory> categoryList = null;
 		try {
 			categoryList = categoryService.getAllCategories(categoryName);
 			LOGGER.debug("category List {}", categoryList);
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Exception retreiving all categories", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(categoryList);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(categoryList);
@@ -56,14 +54,13 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "category/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteCategory(@PathVariable(value = "categoryId") Long categoryId) {
+	public ResponseEntity<?> deleteCategory(@PathVariable("id") Long categoryId) {
 
 		try {
 			categoryService.deleteCategory(categoryId);
 			LOGGER.debug("categoryId deleted {}", categoryId);
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Exception deleting categories", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 

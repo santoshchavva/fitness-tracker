@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,8 +39,9 @@ public class CategoryController {
 		return ResponseEntity.status(HttpStatus.OK).body(category);
 	}
 
-	@RequestMapping("/findAllCategory")
-	public ResponseEntity<List<WorkoutCategory>> findAll(@RequestParam(value = "categoryName") String categoryName) {
+	@RequestMapping("/categories")
+	public ResponseEntity<List<WorkoutCategory>> getCategories (
+			@RequestParam(value = "categoryName", required = false, defaultValue = "") String categoryName) {
 		List<WorkoutCategory> categoryList = null;
 		try {
 			categoryList = categoryService.getAllCategories(categoryName);
@@ -51,11 +54,10 @@ public class CategoryController {
 		return ResponseEntity.status(HttpStatus.OK).body(categoryList);
 
 	}
-	
-	@RequestMapping("/deleteCategory")
-	@SuppressWarnings("rawtypes")
-	public ResponseEntity deleteCategory(@RequestParam(value="categoryId") Long categoryId) {
-			
+
+	@RequestMapping(value = "category/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteCategory(@PathVariable(value = "categoryId") Long categoryId) {
+
 		try {
 			categoryService.deleteCategory(categoryId);
 			LOGGER.debug("categoryId deleted {}", categoryId);
@@ -64,7 +66,7 @@ public class CategoryController {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-		
+
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 

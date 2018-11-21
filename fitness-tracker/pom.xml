@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 	<name>Fitness Tracker</name>
 	<description>FitnessTracker</description>
-
+<!--comment -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
